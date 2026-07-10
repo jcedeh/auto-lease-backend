@@ -1,0 +1,40 @@
+{
+  "name": "autolease-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "typeorm": "npx tsx ./node_modules/typeorm/cli.js",
+    "migration:generate": "npm run typeorm -- migration:generate ./src/database/migrations/InitDatabase -d ./src/config/data-source.ts",
+    "migration:create": "npm run typeorm -- migration:create ./src/database/migrations/ManualMigration",
+    "migration:run": "npm run typeorm -- migration:run -d ./src/config/data-source.ts",
+    "migration:revert": "npm run typeorm -- migration:revert -d ./src/config/data-source.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.22.0",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^26.1.1",
+    "tsx": "^4.23.0",
+    "typeorm-ts-node-esm": "^0.3.20",
+    "typescript": "^7.0.2"
+  }
+}
