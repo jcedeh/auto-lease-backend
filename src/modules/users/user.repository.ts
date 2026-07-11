@@ -21,7 +21,7 @@ export class UserRepository {
   }
 
     async createUser(userData: Partial<User>) {
-    const user = this.repository.create(userData);
+    const user = await this.repository.create(userData);
     return await this.repository.save(user);
   }
 }

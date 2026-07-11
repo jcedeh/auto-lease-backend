@@ -22,7 +22,7 @@ export class User {
   @Column("varchar", { unique: true, length: 255 })
   email!: string;
 
-  @Column("varchar", {select: false, length: 255 })
+  @Column("varchar", {select: true, length: 255 })
   password!: string;
 
   @Column("enum", {

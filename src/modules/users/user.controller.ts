@@ -1,23 +1,26 @@
 import type { Request, Response, NextFunction } from "express";
-import { userService } from "./user.service.js";
+import { UserService } from "./user.service.js";
 
 export class UserController {
-  async getAllUsers(
+  constructor(
+      private readonly userService:UserService
+    ) {}
+  
+    getAllUsers = async(
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<void> {
+  )=> {
     try {
-      const users = await userService.getAllUsers();
+      const users = await this.userService.getAllUsers();
 
       res.status(200).json({
         success: true,
         data: users,
       });
-    } catch (error) {
+    } 
+      catch (error) {
       next(error);
     }
   }
 }
-
-export const userController = new UserController();

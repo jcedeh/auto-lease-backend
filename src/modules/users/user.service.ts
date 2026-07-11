@@ -1,9 +1,12 @@
 import { UserRepository } from "./user.repository.js";
 
 export class UserService {
+  constructor(
+    private readonly userRepository: UserRepository
+  ) {}
+
   async getAllUsers() {
-    return await UserRepository.findAll();
+    return (await this.userRepository.findAll());
   }
 }
 
-export const userService = new UserService();

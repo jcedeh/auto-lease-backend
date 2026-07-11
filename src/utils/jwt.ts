@@ -2,12 +2,13 @@ import { UserRole } from "../modules/users/user-role.enum.js";
 import jwt from "jsonwebtoken";
 
 export interface JwtPayload {
-  userId: string;
+  id: string;
+  email: string;
   role: UserRole;
 }
 
 export function generateToken(payload: JwtPayload): string {
-  return jwt.sign(
+  return jwt.sign(  
     payload,
     process.env.JWT_SECRET!,
     {

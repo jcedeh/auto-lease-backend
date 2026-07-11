@@ -24,4 +24,25 @@ export class AuthController {
       next(error);
     }
   }
+
+  login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+
+    const result = await this.authService.login(req.body);
+
+    return res.status(200).json({
+      success: true,
+      message: "Login successful",
+      data: result,
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
 }
