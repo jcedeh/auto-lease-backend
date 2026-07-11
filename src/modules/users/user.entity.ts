@@ -22,7 +22,7 @@ export class User {
   @Column("varchar", { unique: true, length: 255 })
   email!: string;
 
-  @Column("varchar")
+  @Column("varchar", {select: false, length: 255 })
   password!: string;
 
   @Column("enum", {
@@ -31,9 +31,9 @@ export class User {
   })
   role!: UserRole;
 
-  @CreateDateColumn({ type: "timestamptz" })
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdateDateColumn({ type: "timestamptz" })
+  @UpdateDateColumn()
   updatedAt!: Date;
 }
