@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "typeorm": "npx tsx ./node_modules/typeorm/cli.js",
-    "migration:generate": "npm run typeorm -- migration:generate ./src/database/migrations/InitDatabase -d ./src/config/data-source.ts",
+    "migration:generate": "npm run typeorm -- migration:generate -d ./src/config/data-source.ts",
     "migration:create": "npm run typeorm -- migration:create ./src/database/migrations/ManualMigration",
     "migration:run": "npm run typeorm -- migration:run -d ./src/config/data-source.ts",
     "migration:revert": "npm run typeorm -- migration:revert -d ./src/config/data-source.ts"
@@ -27,7 +27,7 @@
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.22.0",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^1.0.0"
+    "typeorm": "^0.3.27"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -35,6 +35,6 @@
     "@types/node": "^26.1.1",
     "tsx": "^4.23.0",
     "typeorm-ts-node-esm": "^0.3.20",
-    "typescript": "^7.0.2"
+    "typescript": "^5.9.2"
   }
 }
