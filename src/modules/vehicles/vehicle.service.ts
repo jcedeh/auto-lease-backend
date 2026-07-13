@@ -1,5 +1,5 @@
 import { VehicleRepository } from "./vehicle.repository.js";
-import {CreateVehicleDto} from "./vehicle.dto.js"; 
+import {CreateVehicleDto, UpdateVehicleDto} from "./vehicle.dto.js"; 
 import { AppError } from "../../errors/AppError.js";
 import { HTTP_STATUS } from "../../constants/http-status.js";
 
@@ -37,6 +37,10 @@ export class VehicleService {
       throw new AppError("Price per day must be greater than 0", HTTP_STATUS.BAD_REQUEST);
     }
 
+    if (dto.seats <= 0) {
+      throw new AppError("Seats must be greater than 0", HTTP_STATUS.BAD_REQUEST);
+    }
+
     const newVehicle = await this.vehicleRepository.createVehicle({
         vin: dto.vin,
         licensePlate: dto.licensePlate,
@@ -55,16 +59,74 @@ export class VehicleService {
     });
 
     return newVehicle;
+
   }
 
-  
-    
-    
-
-
-
-
-  
+  async getVehicles() {
+    return await this.vehicleRepository.findAll();
 }
 
+async getVehicleById(id: string) {
+    const vehicle =
+        await this.vehicleRepository.findById(id);
 
+    if (!vehicle) {
+        throw new AppError(
+            "Vehicle not found",
+            HTTP_STATUS.NOT_FOUND
+        );
+    }
+
+    return vehicle;
+}
+
+async updateVehicle(id: string, dto: Partial<UpdateVehicleDto>) {
+    const vehicle = await this.vehicleRepository.findById(id);
+    if (!vehicle) {
+        throw new AppError(
+            "Vehicle not found",
+            HTTP_STATUS.NOT_FOUND
+        );
+    } 
+
+    if (dto.vin && dto.vin !== vehicle.vin) {
+      const existing =
+          await this.vehicleRepository.findByVin(dto.vin);
+
+      if (existing) {
+          throw new AppError(
+              "VIN already exists",
+              HTTP_STATUS.BAD_REQUEST
+          );
+      }
+    }
+
+    if (dto.licensePlate && dto.licensePlate !== vehicle.licensePlate) {
+      const existing =
+          await this.vehicleRepository.findByLicensePlate(dto.licensePlate);
+      if (existing) {
+          throw new AppError(
+              "License plate already exists",
+              HTTP_STATUS.BAD_REQUEST
+          );
+    }
+}
+  Object.assign(vehicle, dto); 
+
+}
+
+async deleteVehicle(id: string) {
+    const vehicle = await this.vehicleRepository.findById(id);
+
+    if (!vehicle) {
+        throw new AppError(
+            "Vehicle not found",
+            HTTP_STATUS.NOT_FOUND
+        );
+    }
+
+    await this.vehicleRepository.delete(vehicle);
+
+}
+
+}

@@ -31,7 +31,7 @@ export class AuthService {
     lastName: dto.lastName,
     email: dto.email,
     password: hashedPassword,
-    role: UserRole.CUSTOMER,
+    role: UserRole.ADMIN,
 });
 console.log(user)
     return {

@@ -1,8 +1,10 @@
 import {
   IsEmail,
   IsNotEmpty,
+  IsOptional,
   MinLength,
 } from "class-validator";
+import type { UserRole } from "../users/user-role.enum.js";
 
 export class RegisterUserDto {
 
@@ -17,6 +19,9 @@ export class RegisterUserDto {
 
   @MinLength(8)
   password!: string;
+
+  @IsOptional()
+  role?: UserRole
 }
 
 export class LoginUserDto {

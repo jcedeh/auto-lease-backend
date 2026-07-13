@@ -34,7 +34,11 @@ async findById(id: string) {
 }
 
 async findAll() {
-  return await this.repository.find();
+    return await this.repository.find({
+        order: {
+            createdAt: "DESC"
+        }
+    });
 }
 
 async save(vehicle: Vehicle) {
