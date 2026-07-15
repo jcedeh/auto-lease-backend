@@ -5,8 +5,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  JoinColumn,
 } from "typeorm";
 import { UserRole } from "./user-role.enum.js";
+import { Booking } from "../bookings/bookings.entity.js";
 
 @Entity("users")
 export class User {
@@ -30,6 +33,12 @@ export class User {
     default: UserRole.CUSTOMER,
   })
   role!: UserRole;
+
+ @OneToMany(
+    () => Booking,
+    booking => booking.user
+  )
+  bookings!: Booking[];
 
   @CreateDateColumn()
   createdAt!: Date;

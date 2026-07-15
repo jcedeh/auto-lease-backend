@@ -5,9 +5,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 
 import { FuelType, VehicleStatus, TransmissionType, VehicleCategory } from "./vehicle.enums.js";
+import { Booking } from "../bookings/bookings.entity.js";
 
 
 
@@ -102,6 +104,13 @@ imageUrl?: string;
     default: VehicleStatus.AVAILABLE
 })
 status!: VehicleStatus;
+
+@OneToMany(
+    ()=> Booking,
+    booking => booking.vehicle
+)
+booking!: Booking[]
+
 
 @CreateDateColumn()
 createdAt!: Date;
